@@ -42,6 +42,22 @@ public class UI extends PApplet
 			colours.add(colour);
 		}
 	}
+
+	public void printColours(){
+		for(Colour colour : colours){
+			System.out.println(colour);
+		}
+	}
+
+	public Colour findColour(int value){
+		for(Colour colour : colours){
+			if(colour.value == value){
+				return colour;
+			}
+		}
+
+		return null;
+	}
 	
 	public void draw()
 	{			
