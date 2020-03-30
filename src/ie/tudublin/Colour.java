@@ -1,6 +1,5 @@
 package ie.tudublin;
 
-import processing.core.PApplet;
 import processing.data.TableRow;
 
 public class Colour {
@@ -10,6 +9,7 @@ public class Colour {
     public int value;
     private String colour;
 
+    // getter and setter methods 
     public void setR(int r){
         this.r = r;
     }
@@ -50,10 +50,12 @@ public class Colour {
         return colour;
     }
 
+    // method to print colours to standard output
     public String toString(){
         return colour + "\t" + r + " " + g + " " + b + " " + value;
     }
 
+    // accessor method
     public Colour(String colour, int r, int g, int b, int v){
         this.colour = colour;
         this.r = r;
@@ -62,10 +64,12 @@ public class Colour {
         this.value = v;
     }
 
+    // constructor
     public Colour(){
         this("", 0, 0, 0, 0);
     }
 
+    // constructor 
     public Colour(TableRow tr){
         this(
             tr.getString("colour"),
