@@ -6,77 +6,27 @@ public class Colour {
     public int r;
     public int g;
     public int b;
-    public int value;
-    private String colour;
-
-    // getter and setter methods 
-    public void setR(int r){
-        this.r = r;
-    }
-
-    public int getR(){
-        return r;
-    }
-
-    public void setG(int g){
-        this.g = g;
-    }
-
-    public int getG(){
-        return g;
-    }
-
-    public void setB(int b){
-        this.b = b;
-    }
-
-    public int getB(){
-        return b;
-    }
-
-    public void setValue(int v){
-        this.value = v;
-    }
-
-    public int getValue(){
-        return value;
-    }
-
-    public void setColour(String c){
-        this.colour = c;
-    }
-
-    public String getColour(){
-        return colour;
-    }
+    public int num;
 
     // method to print colours to standard output
     public String toString(){
-        return colour + "\t" + r + " " + g + " " + b + " " + value;
+        return this.r + " " + this.g + " " + this.b + " " + this.num;
+    }
+
+    public Colour(TableRow tr)
+    {
+        this(
+            tr.getInt("r"), 
+            tr.getInt("g"), 
+            tr.getInt("b"), 
+            tr.getInt("value"));
     }
 
     // accessor method
-    public Colour(String colour, int r, int g, int b, int v){
-        this.colour = colour;
+    public Colour(int r, int g, int b, int num){
         this.r = r;
         this.g = g;
         this.b = b;
-        this.value = v;
-    }
-
-    // constructor
-    public Colour(){
-        this("", 0, 0, 0, 0);
-    }
-
-    // constructor 
-    public Colour(TableRow tr){
-        this(
-            tr.getString("colour"),
-            tr.getInt("r"),
-            tr.getInt("g"),
-            tr.getInt("b"),
-            tr.getInt("value")
-        );
+        this.num = num;
     }
 }

@@ -1,24 +1,22 @@
 package ie.tudublin;
 
+import processing.core.PApplet;
+
 public class Resistor {
     UI ui;
     public int value;
-    public int ones;
-    public int tens;
-    public int hundreds;
 
-    // method to allow printing of resistors to console
-    public String toString(){
-        return value + " " + hundreds + " " + tens + " " + ones;
-    }
+    Colour hc;
+    Colour tc;
+    Colour oc;
+
 
     // method to render resistors to applet
-    public void render(){
+    public void render(float x, float y){
 
-        ui.strokeWeight(2);
-        ui.stroke(0, 0, 0);
-
-        // draw the resistor outline
+        ui.pushMatrix();
+        ui.translate(x, y);
+        ui.stroke(0);
         ui.line(-100, 0, -50, 0);
         ui.line(-50, 0, -50, -50);
         ui.line(-50, -50, 50, -50);
@@ -29,29 +27,33 @@ public class Resistor {
         ui.line(50, 50, -50, 50);
         ui.line(-50, 50, -50, 0);
 
-        // get the colours of the resistor bands
-        Colour c1 = ui.findColour(this.hundreds);
-        Colour c2 = ui.findColour(this.tens);
-        Colour c3 = ui.findColour(this.ones);
-
-        ui.strokeWeight(5);
-
-        // make the coloured bands
-        ui.stroke(c1.getR(), c1.getG(), c1.getB());
-        ui.line(-40, 50, -40, -50);
-        ui.stroke(c2.getR(), c2.getG(), c2.getB());
-        ui.line(-30, 50, -30, -50);
-        ui.stroke(c3.getR(), c3.getG(), c3.getB());
-        ui.line(-20, 50, -20, -50);
+        // Draw the color bars
+        ui.noStroke();
+        ui.fill(hc.r, hc.g, hc.b);
+        ui.rect(-40, -49, 10, 99);
+        
+        ui.fill(tc.r, tc.g, tc.b);
+        ui.rect(-20, -49, 10, 99);
+        
+        ui.fill(oc.r, oc.g, oc.b);
+        ui.rect(0, -49, 10, 99);
+        ui.fill(0);
+        ui.textAlign(PApplet.CENTER, PApplet.CENTER);
+        ui.textSize(30);
+        ui.text(value, 200, 0);
+        ui.popMatrix();
     }
 
     // resistor constructor 
-    public Resistor(UI ui, int value){
+    public Resistor(UI ui, int resistance){
 
         this.ui = ui;
-        this.value = value;
-        this.hundreds = (value / 100);
-        this.tens = (value - (hundreds * 100)) / 10;
-        this.ones = value - ((hundreds * 100)  + (tens * 10));
+        this.value = resistance;
+        int hundreds = (resistance / 100);
+        int tens = (resistance - (hundreds * 100)) / 10;
+        int ones = resistance - ((hundreds * 100)  + (tens * 10));
+        hc = ui.findColour(hundreds);
+        tc = ui.findColour(tens);
+        oc = ui.findColour(ones);
     }
 }

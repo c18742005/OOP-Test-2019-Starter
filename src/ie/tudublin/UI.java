@@ -22,6 +22,10 @@ public class UI extends PApplet {
 
 	public void settings() {
 		size(500, 800);
+		loadColours();
+		loadResistors();
+		printColours();
+		printResistors();
 		
 		//separate(381);
 		//separate(1);
@@ -29,11 +33,6 @@ public class UI extends PApplet {
 	}
 
 	public void setup() {
-		background(220);	// gray background
-		loadColours();
-		loadResistors();
-		printColours();
-		printResistors();
 	}
 
 	// method to load colours from the csv file with headers
@@ -67,32 +66,40 @@ public class UI extends PApplet {
 	}
 
 	// method to find the colour given a value
-	public Colour findColour(int value){
-		for(Colour colour : colours){
-			if(colour.value == value){
-				return colour;
-			}
+	public Colour findColour(int num){
+		for(Colour c:colours)
+		{
+			if (c.num == num)
+			{
+				return c;
+			}			
 		}
-
 		return null;
 	}
 
 	// prints the resistors to console
 	public void printResistors(){
-		for(Resistor resistor : resistors){
-			System.out.println(resistor);
+		for(Resistor r:resistors)
+		{
+			int i = r.value;
+			int hundreds = (i / 100);
+			int tens = (i - (hundreds * 100)) / 10;
+			int ones = i - ((hundreds * 100)  + (tens * 10));
+			print(hundreds + ",");
+			print(tens + ",");
+			println(ones);			
 		}
 	}
 	
 	public void draw()
-	{			
-		for(int i = 0; i < resistors.size(); i++){
-			Resistor r = resistors.get(i);
-
-			pushMatrix();
-			translate(100, map(i, 0, resistors.size(), 50, 600));
-			r.render();
-			popMatrix();
+	{	
+		background(200);
+		stroke(255);
+		
+		for(int i = 0 ; i < resistors.size() ; i ++)
+		{
+			float y = map(i, 0, resistors.size(), 100, height - 100);
+			resistors.get(i).render(width / 2, y);
 		}
 	}
 }
